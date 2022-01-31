@@ -16,15 +16,15 @@ from sklearn.linear_model import LinearRegression
 from PIL import Image, ImageEnhance
 import cv2.cv2 as cv2
 
-img_path = "C:/Users/janly/Documents/Master Thesis/Training/interrupted_print/photo_262_carrier_2_left.png"
-save_dir = "C:/Users/janly/Documents/Master Thesis/Undersampled_data/Callbacks/exp_21_01_01/model_3.h5"
+img_path =      # The path where the input image is saved
+save_dir =      # The path where the trained model is saved
 model = load_model(save_dir)
 
 img_height = 360
 img_width = 220
 
 
-org_img = skimage.io.imread("photo_262_carrier_2_left.png")
+org_img = skimage.io.imread("photo_xxx_carrier_x_xxxx.png")
 org_img = skimage.transform.resize(org_img, (img_width, img_height))
 
 np.random.seed(372)
@@ -32,14 +32,14 @@ preds = model.predict(org_img[np.newaxis, :, :, :])
 top_pred_classes = preds[0].argsort()
 
 # generate segmentation for image
-bright_img = Image.open("photo_262_carrier_2_left.png")
+bright_img = Image.open("photo_xxx_carrier_x_xxxx.png")
 # brightness enhancer
 enhancer = ImageEnhance.Brightness(bright_img)
 
 factor = 2.5
 bright_output = enhancer.enhance(factor)
-bright_output.save("brightened_background_262_2_left.png")
-img = mpimg.imread("brightened_background_262_2_left.png")
+bright_output.save("brightened_background_xxx_x_xxxx.png")
+img = mpimg.imread("brightened_background_xxx_x_xxxx.png")
 #img = skimage.transform.resize(img, (img_width, img_height))
 superpixels = skimage.segmentation.quickshift(org_img, kernel_size=4, max_dist=50, ratio=0.005)
 num_superpixels = np.unique(superpixels).shape[0]
@@ -105,10 +105,10 @@ mask[top_features] = True
 # load the background into the new plot
 lime_img = perturb_image(img, mask, superpixels)
 lime_imgplot = plt.imshow(lime_img)
-plt.imsave("lime_img_262_2_left_with_black.png", lime_img)
+plt.imsave("lime_img_xxx_x_xxxx_with_black.png", lime_img)
 plt.show()
 
-new_lime_img = skimage.io.imread("C:/Users/janly/Documents/Master Thesis/lime_img_262_2_left_with_black.png")
+new_lime_img = skimage.io.imread(img_path)
 # remove the background from perturbed image
 img_float32 = np.float32(new_lime_img)
 gray = cv2.cvtColor(img_float32, cv2.COLOR_BGR2GRAY)
@@ -160,10 +160,10 @@ def creatingBackground(filepath: str, brightness: float, img_size: tuple):
 
     return Image.open("darkened_background_"+filepath[-22:])
 
-final_lime_image = Image.open("lime_img_262_2_left_no_black.png")
+final_lime_image = Image.open("lime_img_xxx_x_xxxx_no_black.png")
 
 final_background = creatingBackground(img_path, 0.5, (img_width, img_height))
 
 final_background.paste(final_lime_image, (0, 0), final_lime_image)
-final_background.save("final_lime_262_2_left_first_try.png")
+final_background.save("final_lime_xxx_x_xxxx_first_try.png")
 final_background.show()
