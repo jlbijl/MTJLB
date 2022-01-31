@@ -9,7 +9,7 @@ import matplotlib.cm as cm
 from PIL import Image
 
 
-save_dir = "C:/Users/janly/Documents/Master Thesis/Undersampled_data/Callbacks/exp_21_01_01/model_3.h5"
+save_dir =      # The path where the trained model that should be used is saved
 model = load_model(save_dir)
 
 img_height = 360
@@ -27,7 +27,7 @@ preprocess_input = keras.applications.xception.preprocess_input
 conv_layer = "conv2d_1"
 
 # path to target image
-img_path = "C:/Users/janly/Documents/Master Thesis/Training/interrupted_print/photo_262_carrier_2_left.png"
+img_path =          # The path where the input image is saved
 
 
 def get_img_array(img_path, size):
@@ -100,9 +100,9 @@ def save_display_gradcam(img_path, heatmap, alpha=0.4):
     superimposed_img = jet_heatmap * alpha + img
     superimposed_img = keras.preprocessing.image.array_to_img(superimposed_img)
 
-    superimposed_img.save("heatmap_262_2_left_v1.png")
+    superimposed_img.save("heatmap_xxx_x_xxxx_v1.png")
 
-    im = Image.open("heatmap_262_2_left_v1.png")
+    im = Image.open("heatmap_xxx_x_xxxx_v1.png")
     im.show()
 
 
